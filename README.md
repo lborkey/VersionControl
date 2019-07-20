@@ -1,3 +1,5 @@
+**2.0 BRANCH IS NOW DEPRECATED!** Please note that this branch is deprecated, and only left in place as a temporary legacy version. Development of VersionControl 2.x continues in the [dev branch](https://github.com/teppokoivula/VersionControl/tree/dev) and will eventually be merged to the [master branch](https://github.com/teppokoivula/VersionControl/tree/master).
+
 Version Control module for ProcessWire
 ======================================
 
