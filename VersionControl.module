@@ -199,7 +199,7 @@ class VersionControl extends WireData implements Module, ConfigurableModule {
     /**
      * Add VersionControl namespace to ProcessWire's class autoloader
      */
-    protected function initClassLoader() {
+    public function initClassLoader() {
         if (!$this->wire('classLoader')->hasNamespace('VersionControl')) {
             $this->wire('classLoader')->addNamespace(
                 'VersionControl',
