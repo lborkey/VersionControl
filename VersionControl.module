@@ -12,7 +12,7 @@
  * changes to individual fields and store them in a series of custom database
  * tables, along with required metadata, such as a running revision number.
  * 
- * @copyright 2013-2019 Teppo Koivula
+ * @copyright 2013-2020 Teppo Koivula
  * @license https://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License, version 2
  * @todo regenerate data when fields are added to a tracked Template/Fieldgroup (see ProcessWire issue #1247)
  */
@@ -128,7 +128,6 @@ class VersionControl extends WireData implements Module, ConfigurableModule {
         foreach (static::$defaultData as $key => $value) {
             $this->$key = $value;
         }
-        $this->wire('modules')->setModuleConfigData($this->className);
     }
 
     /**
@@ -142,6 +141,7 @@ class VersionControl extends WireData implements Module, ConfigurableModule {
      * @return InputfieldWrapper
      */
     public function getModuleConfigInputfields(array $data) {
+        $this->initClassLoader();
         return $this->wire(new \VersionControl\ModuleConfig($data))->getFields();
     }
 
@@ -200,10 +200,12 @@ class VersionControl extends WireData implements Module, ConfigurableModule {
      * Add VersionControl namespace to ProcessWire's class autoloader
      */
     protected function initClassLoader() {
-        $this->wire('classLoader')->addNamespace(
-            'VersionControl',
-            $this->wire('config')->paths->get('VersionControl') . 'lib/'
-        );
+        if (!$this->wire('classLoader')->hasNamespace('VersionControl')) {
+            $this->wire('classLoader')->addNamespace(
+                'VersionControl',
+                $this->wire('config')->paths->get('VersionControl') . 'lib/'
+            );
+        }
     }
 
     /**
